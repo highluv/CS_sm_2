@@ -123,6 +123,8 @@ saveToFile()
  ├─ serializeContactToString()
  └─ writeLineToFile()
 
+ 
+
 loadFromFile()
  ├─ fileExists(filename)
  │    └─ handleFileError()
