@@ -1,0 +1,25 @@
+@startuml
+start
+
+:Ввод filename и mode;
+
+:file = openFile(filename, mode);
+if (file == null?) then (да)
+  :handleFileError(code);\nВернуть false;
+  stop
+endif
+
+:Для i от 0 до contactsCount-1;
+while (i < contactsCount?) is (да)
+  if (contacts[i].deleted == false?) then (да)
+    :line = serializeContactToString(contacts[i]);
+    :writeLineToFile(file, line);
+  endif
+  :i = i + 1;
+endwhile (нет)
+
+:Закрыть файл;
+:Вернуть true;
+
+stop
+@enduml

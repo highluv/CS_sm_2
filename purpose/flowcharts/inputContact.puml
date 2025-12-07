@@ -1,0 +1,39 @@
+@startuml
+start
+
+:Ввод name;
+while (name пустое?) is (да)
+  :Сообщить об ошибке;\nПовторить ввод name;
+  :Ввод name;
+endwhile (нет)
+
+:Ввод phone;
+while (validatePhone(phone) == false) is (нет)
+  :Ошибка формата телефона;\nПовторить ввод;
+  :Ввод phone;
+endwhile (да)
+
+:Ввод birthday;
+while (validateBirthday(birthday) == false) is (нет)
+  :Ошибка формата даты;\nПовторить ввод;
+  :Ввод birthday;
+endwhile (да)
+
+:Ввод age;
+while (validateAge(age) == false) is (нет)
+  :Ошибка возраста;\nПовторить ввод;
+  :Ввод age;
+endwhile (да)
+
+:Ввод category;
+while (validateCategory(category) == false) is (нет)
+  :Ошибка категории;\nПовторить ввод;
+  :Ввод category;
+endwhile (да)
+
+:id = generateId();
+:Создать Contact(id, ...);
+:addToArray(contact);
+
+stop
+@enduml

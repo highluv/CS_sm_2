@@ -1,0 +1,30 @@
+@startuml
+start
+
+:Ввод filename;
+
+if (fileExists(filename) == false?) then (да)
+  :handleFileError(FILE_NOT_FOUND);\nВернуть false;
+  stop
+endif
+
+:file = openFile(filename, READ);
+if (file == null?) then (да)
+  :handleFileError(code);\nВернуть false;
+  stop
+endif
+
+while (readLine(file, line) == true?) is (да)
+  :contact = parseContactFromString(line);
+  if (contact валиден?) then (да)
+    :addToArray(contact);
+  else (нет)
+    :Вывести предупреждение;\n"Строка пропущена";
+  endif
+endwhile (нет)
+
+:Закрыть файл;
+:Вернуть true;
+
+stop
+@enduml
