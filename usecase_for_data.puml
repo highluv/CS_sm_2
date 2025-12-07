@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+
+actor "Пользователь" as User
+
+rectangle "Система управления контактами" {
+    usecase "Завершить программу\n" as UC_Exit
+    usecase "Ввести данные контакта\n(ФТ1)" as UC_Input
+    usecase "Вывести список контактов\nна экран (ФТ2)" as UC_Show
+    usecase "Сохранить данные в файл\n(ФТ3)" as UC_Save
+    usecase "Создать новый файл\n(ФТ3.1)" as UC_NewFile
+    usecase "Добавить в существующий файл\n(ФТ3.2)" as UC_Append
+    usecase "Загрузить данные из файла\n(ФТ5)" as UC_Load
+}
+
+User --> UC_Exit
+User --> UC_Input
+User --> UC_Show
+User --> UC_Save
+User --> UC_Load
+
+UC_Save --> UC_NewFile : <<include>>
+UC_Save --> UC_Append  : <<include>>
+
+@enduml
