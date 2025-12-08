@@ -1,22 +1,44 @@
 #include <iostream>
-#include "input.h"
 #include "contact.h"
+#include "input.h"
+#include "output.h"
 
-int main() {
-    std::cout << "Test Contact\n\n";
+using namespace std;
 
-    Contact c = inputContact();
-    contacts[contactsCount++] = c;
-
-    std::cout << "\n--- Вывод контакта ---\n";
-    std::cout << "id: " << contacts[0].id << "\n";
-    std::cout << "name: " << contacts[0].name << "\n";
-    std::cout << "phone: " << contacts[0].phone << "\n";
-    std::cout << "category: " << contacts[0].category << "\n";
-    std::cout << "birthday: " << contacts[0].birthday << "\n";
-    std::cout << "age: " << contacts[0].age << "\n";
-    std::cout << "deleted: " << contacts[0].deleted << "\n";
-
-    return 0;
+void printMenu() {
+    cout << "\n====== MENU ======\n";
+    cout << "1. Add contact\n";
+    cout << "2. Show all contacts\n";
+    cout << "0. Exit\n";
+    cout << "==================\n";
+    cout << "Choose option: ";
 }
 
+int main() {
+    while (true) {
+        printMenu();
+
+        int choice;
+        cin >> choice;
+        cin.ignore(); // чтобы съесть \n
+
+        if (choice == 1) {
+            cout << "\n--- Add Contact ---\n";
+            Contact c = inputContact();
+            contacts[contactsCount++] = c;
+            cout << "Contact added!\n";
+        }
+        else if (choice == 2) {
+            cout << "\n--- Contact List ---\n";
+            printContacts();
+        }
+        else if (choice == 0) {
+            cout << "Exiting...\n";
+            break; // выход из цикла → завершение программы
+        }
+        else {
+            cout << "Invalid option, try again!\n";
+        }
+    }
+    return 0;
+}
