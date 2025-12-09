@@ -67,14 +67,11 @@ project_root/
 │  ├─ contacts.h
 │  ├─ file_io.h
 │  └─ menu.h
-├─ src/       # файлы реализации (.cpp)
-│  ├─ main.cpp
-│  ├─ contacts.cpp
-│  ├─ file_io.cpp
-│  └─ menu.cpp
-└─ data/      # тестовые файлы с контактами
-   ├─ contacts_sample_1.txt
-   └─ contacts_sample_2.txt
+└─ src/       # файлы реализации (.cpp)
+   ├─ main.cpp
+   ├─ contacts.cpp
+   ├─ file_io.cpp
+   └─ menu.cpp
 ```
 
 ## Functional Specification
