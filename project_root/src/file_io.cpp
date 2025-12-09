@@ -57,7 +57,7 @@ bool loadFromFile(const std::string& filename) {
         Contact c;
         std::string field;
 
-        // ---- читаем поля из строки ----
+        //  читаем поля из строки 
 
         std::getline(ss, field, ';');
         c.id = std::stoi(field);
@@ -73,7 +73,7 @@ bool loadFromFile(const std::string& filename) {
         std::getline(ss, field, ';');
         c.deleted = (field == "1");
 
-        // ---- кладём контакт в массив ----
+        //  кладём контакт в массив 
         contacts[contactsCount++] = c;
     }
 
