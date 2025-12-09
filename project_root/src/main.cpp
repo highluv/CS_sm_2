@@ -1,10 +1,12 @@
 #include <iostream>
+#include <limits>
+
 #include "contact.h"
 #include "input.h"
 #include "output.h"
 #include "file_io.h"
 #include "tree.h"
-#include "contact.h"
+#include "contact_ops.h"
 
 
 using namespace std;
@@ -20,6 +22,9 @@ void printMenu() {
     cout << "7. Show contacts descending (by ID)\n";
     cout << "8. Search (recursive)\n";
     cout << "9. Search (iterative)\n";
+    cout << "10. Delete contact (logical)\n";
+    cout << "11. Compact (physical delete)\n";
+    cout << "12. Edit contact\n";
     cout << "0. Exit\n";
     cout << "==================\n";
     cout << "Choose option: ";
@@ -49,6 +54,8 @@ int main() {
             cout << "\n--- Add Contact ---\n";
             Contact c = inputContact();
             contacts[contactsCount++] = c;
+            idIndex = BinaryTreeIndex();
+            buildIdIndex(idIndex);
             cout << "Contact added!\n";
         }
         else if (choice == 2) {
@@ -77,7 +84,6 @@ int main() {
             getline(cin, filename);
         
             resetContacts();  // <<< ВАЖНО: очищаем массив перед загрузкой
-            idIndex = BinaryTreeIndex();  // сброс индекса
 
             if (loadFromFile(filename)) {
                 cout << "Loaded successfully!\n";
@@ -91,7 +97,6 @@ int main() {
                 cout << "Error while loading!\n";
             }
         }
-
         else if (choice == 5) {
             buildIdIndex(idIndex);
             cout << "Index (binary tree) built successfully!\n";
@@ -132,6 +137,48 @@ int main() {
             } else {
                 int i = result->contactIndex;
                 printContact(contacts[i]);
+            }
+        }
+        else if (choice == 10) {
+            int id;
+            cout << "Enter ID to delete (logical): ";
+            cin >> id;
+            cin.ignore();
+        
+            if (deleteById(id)) {
+                cout << "Marked as deleted.\n";
+        
+                // Перестроить индекс
+                idIndex = BinaryTreeIndex();
+                buildIdIndex(idIndex);
+            } else {
+                cout << "Contact not found.\n";
+            }
+        }
+        else if (choice == 11) {
+            cout << "Compacting contacts...\n";
+        
+            compactContacts();
+        
+            // Перестроить индекс
+            idIndex = BinaryTreeIndex();
+            buildIdIndex(idIndex);
+        
+            cout << "All deleted contacts removed permanently.\n";
+        }
+        else if (choice == 12) {
+            int id;
+            cout << "Enter ID to edit: ";
+            cin >> id;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        
+            if (editContactById(id)) {
+                cout << "Rebuilding index...\n";
+                idIndex = BinaryTreeIndex();
+                buildIdIndex(idIndex);
+                cout << "Done.\n";
+            } else {
+                cout << "Contact not found.\n";
             }
         }
 
