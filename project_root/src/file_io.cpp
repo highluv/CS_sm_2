@@ -81,3 +81,11 @@ bool loadFromFile(const std::string& filename) {
     return true;
 }
 
+void resetContacts() {
+    for (int i = 0; i < contactsCount; i++) {
+        contacts[i] = Contact();  // очищаем объект
+    }
+    contactsCount = 0; // сброс количества
+}
+
+

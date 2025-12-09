@@ -9,5 +9,6 @@
 // 2 — дописать в конец
 bool saveToFile(const std::string& filename, int mode);
 bool loadFromFile(const std::string& filename);
+void resetContacts();
 
 #endif
