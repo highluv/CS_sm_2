@@ -1,0 +1,23 @@
+@startuml
+start
+:Метод searchIterative(key);
+
+:curr = root;
+
+while (curr != nullptr)
+  if (key == curr.key?) then (да)
+    :return curr;
+    stop
+  endif
+
+  if (key < curr.key?) then (да)
+    :curr = curr.left;
+  else (нет)
+    :curr = curr.right;
+  endif
+endwhile
+
+:return nullptr;
+
+stop
+@enduml

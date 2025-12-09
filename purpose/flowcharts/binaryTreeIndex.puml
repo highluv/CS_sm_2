@@ -1,0 +1,39 @@
+@startuml
+start
+
+:'Создание объекта BinaryTreeIndex';
+:Вызов конструктора BinaryTreeIndex();
+:root = nullptr;
+
+stop
+
+
+start 
+note right
+Вставка узла
+end note
+:Метод insert(contactIndex, key);
+
+:root = insertNode(root, contactIndex, key);
+
+stop
+
+start
+note right
+Рекурсивная insertNode
+end note
+if (node == nullptr?) then (да)
+  :Создать new TreeNode(contactIndex, key);
+  :Вернуть новый узел;
+  stop
+endif
+
+if (key < node.key?) then (да)
+  :node.left = insertNode(node.left, contactIndex, key);
+else (нет)
+  :node.right = insertNode(node.right, contactIndex, key);
+endif
+
+:Вернуть node;
+stop
+@enduml

@@ -1,25 +1,50 @@
 @startuml
 start
 
-:Ввод filename и mode;
+:Получить filename, mode из main;
 
-:file = openFile(filename, mode);
-if (file == null?) then (да)
-  :handleFileError(code);\nВернуть false;
+if (mode == 1 ?) then (да)
+  :openMode = ios::out;
+  note right
+  Режим 1: создаём новый файл
+  (перезаписываем существующий).
+  end note
+elseif (mode == 2 ?) then (да)
+  :openMode = ios::app;
+  note right
+  Режим 2: дописываем в конец
+  без изменения уже записанных строк.
+  end note
+else (нет)
+  :Вывести "Invalid mode!";
+  :return false;
   stop
 endif
 
-:Для i от 0 до contactsCount-1;
-while (i < contactsCount?) is (да)
-  if (contacts[i].deleted == false?) then (да)
-    :line = serializeContactToString(contacts[i]);
-    :writeLineToFile(file, line);
-  endif
-  :i = i + 1;
-endwhile (нет)
+:Открыть ofstream file(filename, openMode);
 
-:Закрыть файл;
-:Вернуть true;
+if (file не открыт?) then (да)
+  :Вывести "Cannot open file!";
+  :return false;
+  stop
+endif
 
+:i = 0;
+
+while (i < contactsCount)
+  :c = contacts[i];
+  note right
+  Берём контакт из глобального массива contacts[].
+  end note
+
+  :Сформировать строку
+  "c.id;c.name;...;c.deleted";
+  :Записать строку в файл;
+
+  :i++;
+endwhile
+
+:Закрыть file;
+:return true;
 stop
 @enduml

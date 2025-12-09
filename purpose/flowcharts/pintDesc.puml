@@ -1,0 +1,34 @@
+@startuml
+start
+:Метод printDescending();
+
+:Вызвать printDescendingNode(root);
+
+stop
+
+
+
+start
+note right
+Вспомогательная рекурсивная printDescendingNode(node)
+end note
+if (node == nullptr?) then (да)
+  :return;
+  stop
+endif
+
+:printDescendingNode(node.right);
+
+:i = node.contactIndex;
+
+if (!contacts[i].deleted?) then (да)
+  :Вывести "ID, Name, Phone"
+  из contacts[i];
+else (нет)
+  :Пропустить удалённый контакт;
+endif
+
+:printDescendingNode(node.left);
+
+stop
+@enduml

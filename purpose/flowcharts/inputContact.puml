@@ -1,39 +1,53 @@
 @startuml
 start
 
-:Ввод name;
-while (name пустое?) is (да)
-  :Сообщить об ошибке;\nПовторить ввод name;
-  :Ввод name;
-endwhile (нет)
+:В main выбран пункт "Load from file";
+:Считать filename;
 
-:Ввод phone;
-while (validatePhone(phone) == false) is (нет)
-  :Ошибка формата телефона;\nПовторить ввод;
-  :Ввод phone;
-endwhile (да)
+:Вызов resetContacts();
+note right
+resetContacts очищает массив contacts[]
+и сбрасывает contactsCount = 0.
+Это гарантирует, что загрузка
+начинает заполнять массив "с нуля".
+end note
 
-:Ввод birthday;
-while (validateBirthday(birthday) == false) is (нет)
-  :Ошибка формата даты;\nПовторить ввод;
-  :Ввод birthday;
-endwhile (да)
+:Вызов loadFromFile(filename);
 
-:Ввод age;
-while (validateAge(age) == false) is (нет)
-  :Ошибка возраста;\nПовторить ввод;
-  :Ввод age;
-endwhile (да)
+if (Не удалось открыть файл?) then (да)
+  :Вывести "Cannot open file!";
+  :return false в main;
+  stop
+endif
 
-:Ввод category;
-while (validateCategory(category) == false) is (нет)
-  :Ошибка категории;\nПовторить ввод;
-  :Ввод category;
-endwhile (да)
+while (std::getline(file, line))
+  :Создать std::stringstream ss(line);
+  :Создать локальный Contact c;
 
-:id = generateId();
-:Создать Contact(id, ...);
-:addToArray(contact);
+  :Прочитать field до ';' → c.id (stoi);
+  :Прочитать до ';' → c.name;
+  :Прочитать до ';' → c.phone;
+  :Прочитать до ';' → c.category;
+  :Прочитать до ';' → c.birthday;
+  :Прочитать до ';' → age (stoi);
+  :Прочитать до ';' → deleted ("1" → true);
+
+  :contacts[contactsCount] = c;
+  :contactsCount++;
+endwhile
+
+:Закрыть file;
+:return true в main;
+
+note right
+Сразу после успешной загрузки main
+вызывает:
+  idIndex = BinaryTreeIndex();
+  buildIdIndex(idIndex);
+Тем самым индекс по ID
+автоматически пересобирается
+по новым данным.
+end note
 
 stop
 @enduml

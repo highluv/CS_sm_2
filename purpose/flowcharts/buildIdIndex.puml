@@ -1,0 +1,33 @@
+@startuml
+start
+
+:Функция buildIdIndex(BinaryTreeIndex& index);
+
+:index = BinaryTreeIndex();
+note right
+Создаётся новый пустой объект дерева.
+root = nullptr, старые узлы
+становятся недоступны (логический сброс индекса).
+end note
+
+:i = 0;
+
+while (i < contactsCount)
+  if (contacts[i].deleted?) then (да)
+    :Пропускаем контакт;
+  else (нет)
+    :key = contacts[i].id;
+    :index.insert(i, key);
+    note right
+    insert создаёт/уточняет структуру
+    бинарного дерева по ID.
+    В узле хранится:
+      key = ID,
+      contactIndex = i.
+    end note
+  endif
+  :i++;
+endwhile
+
+stop
+@enduml

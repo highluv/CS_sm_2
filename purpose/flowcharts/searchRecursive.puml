@@ -1,0 +1,22 @@
+@startuml
+start
+:Метод searchRecursive(node, key);
+
+if (node == nullptr?) then (да)
+  :return nullptr;
+  stop
+endif
+
+if (key == node.key?) then (да)
+  :return node;
+  stop
+endif
+
+if (key < node.key?) then (да)
+  :return searchRecursive(node.left, key);
+else (нет)
+  :return searchRecursive(node.right, key);
+endif
+
+stop
+@enduml

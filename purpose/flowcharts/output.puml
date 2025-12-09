@@ -1,0 +1,16 @@
+@startuml
+start
+:i = 0;
+
+while (while i < contactsCount)
+  if (contacts[i].deleted) then (да)
+    :Пропустить запись;
+  else (нет)
+    :Вывести контакт i;
+  endif
+
+  :i++;
+endwhile
+
+stop
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+start
+:Метод printAscending();
+
+:Вызвать printAscendingNode(root);
+
+stop
+
+
+start
+note right
+Вспомогательная рекурсивная printAscendingNode(node)
+end note
+if (node == nullptr?) then (да)
+  :return;
+  stop
+endif
+
+:printAscendingNode(node.left);
+:i = node.contactIndex;
+
+if (!contacts[i].deleted?) then (да)
+  :Вывести "ID, Name, Phone"
+  из contacts[i];
+  note right
+  Используется глобальный массив contacts[].
+  Узел дерева хранит только index и key.
+  end note
+else (нет)
+  :Логически удалённый контакт не печатается;
+endif
+
+:printAscendingNode(node.right);
+
+stop
+@enduml

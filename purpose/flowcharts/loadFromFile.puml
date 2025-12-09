@@ -1,30 +1,24 @@
 @startuml
 start
 
-:Ввод filename;
+:resetContacts();
 
-if (fileExists(filename) == false?) then (да)
-  :handleFileError(FILE_NOT_FOUND);\nВернуть false;
-  stop
+:Открыть файл;
+
+if (файл не открыт?) then (да)
+    :Ошибка;
+    stop
 endif
 
-:file = openFile(filename, READ);
-if (file == null?) then (да)
-  :handleFileError(code);\nВернуть false;
-  stop
-endif
+while (читать строку)
+    :Разбить строку на поля;
 
-while (readLine(file, line) == true?) is (да)
-  :contact = parseContactFromString(line);
-  if (contact валиден?) then (да)
-    :addToArray(contact);
-  else (нет)
-    :Вывести предупреждение;\n"Строка пропущена";
-  endif
-endwhile (нет)
+    :Создать объект Contact c;
+    :Заполнить поля c;
 
-:Закрыть файл;
-:Вернуть true;
+    :contacts[contactsCount] = c;
+    :contactsCount++;
+endwhile
 
 stop
 @enduml
